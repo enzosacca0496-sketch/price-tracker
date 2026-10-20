@@ -1,4 +1,4 @@
-# Price Tracker → Telegram
+# Tracker prezzi → Telegram
 
 Controlla ogni 15 minuti i prezzi dei prodotti in `products.yaml` e ti manda un messaggio
 Telegram quando un prezzo scende sotto la soglia che hai scelto. Gira gratis su GitHub Actions,
@@ -14,7 +14,7 @@ quindi funziona 24/7 anche a PC spento.
    e cerca `"chat":{"id":123456789` → quel numero è il tuo **chat id**.
 
 ### 2. Crea il repository su GitHub
-1. Su github.com → **New repository** → nome es. `price-tracker`.
+1. Su github.com → **New repository** → nome es. `tracker-prezzi`.
    - **Public** = minuti di Actions illimitati e gratis (i token restano segreti, si vede solo la lista prodotti).
    - **Private** = 2000 minuti/mese gratis: in quel caso nel file
      `.github/workflows/track.yml` cambia `*/15` in `*/30` per restare nel limite.
@@ -27,7 +27,7 @@ Nel repo: **Settings → Secrets and variables → Actions → New repository se
 - `TELEGRAM_CHAT_ID` = il tuo chat id
 
 ### 4. Avvia
-**Actions** → "Price tracker" → **Run workflow**. Dopo un minuto apri il run e controlla
+**Actions** → "Tracker prezzi" → **Run workflow**. Dopo un minuto apri il run e controlla
 il log: vedi il prezzo letto per ogni prodotto. Da lì in poi parte da solo ogni 15 minuti.
 
 ## Aggiungere / togliere prodotti
@@ -35,14 +35,20 @@ Modifica `products.yaml` direttamente da GitHub (icona matita):
 
 ```yaml
 - name: Nome che vuoi nella notifica
-  url: https://www.amazon.it/dp/XXXXXXXXXX
+  url: https://www.mediaworld.it/it/product/...
   target: 49.99
 ```
 
-Per Amazon basta il link corto `https://www.amazon.it/dp/<codice ASIN>`.
+## Prodotti Amazon → Keepa
+Amazon blocca le richieste che arrivano dai server di GitHub (CAPTCHA o pagine "non disponibile"),
+quindi i prodotti Amazon **non vanno messi in `products.yaml`**. Per Amazon usa **Keepa** (keepa.com, gratis):
+1. Crea un account su keepa.com e collega Telegram dalle impostazioni delle notifiche.
+2. Cerca il prodotto (o incolla il link Amazon), scheda **Segui prodotto**,
+   imposta il prezzo desiderato e scegli Amazon.it.
+3. Quando il prezzo scende sotto la soglia, Keepa ti scrive su Telegram.
 
 ### Se un sito non viene letto
-La maggior parte degli e-commerce viene letta in automatico (Amazon, MediaWorld, Euronics…).
+La maggior parte degli e-commerce viene letta in automatico (MediaWorld, Euronics…).
 Se nel log vedi `prezzo non trovato`, aggiungi un `selector`:
 1. Apri la pagina in Chrome, tasto destro sul prezzo → **Ispeziona**.
 2. Guarda l'elemento evidenziato, es. `<span class="product-price">29,90 €</span>`.
@@ -53,7 +59,6 @@ Se nel log vedi `prezzo non trovato`, aggiungi un `selector`:
 - Non ti ripete lo stesso avviso a ogni controllo: ti riscrive solo se il prezzo **scende ancora**.
 - Se il prezzo risale sopra la soglia e poi riscende, ti riavvisa.
 - Se un prodotto non è leggibile per 6 controlli di fila (link rotto, sito cambiato) ti arriva un ⚠️.
-- I prodotti esauriti su Amazon vengono saltati senza errori.
 
 ## Prova in locale (facoltativo)
 ```
@@ -65,6 +70,6 @@ python tracker.py --test    # manda un messaggio di prova
 
 ## Limiti da sapere
 - GitHub non garantisce il minuto esatto: i controlli "ogni 15 minuti" a volte slittano di qualche minuto.
-- Amazon ogni tanto risponde con un CAPTCHA ai server di GitHub: quel giro viene saltato e si riprova al successivo.
+- Amazon blocca i server di GitHub: per Amazon usa Keepa (vedi sopra).
 - Su un repo senza attività per 60 giorni GitHub sospende i workflow pianificati (ti avvisa via email,
   basta riattivarlo dalla scheda Actions).

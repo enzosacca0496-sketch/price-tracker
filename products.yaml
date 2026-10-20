@@ -1,0 +1,18 @@
+# Prodotti da tracciare.
+#   name:     nome che compare nella notifica
+#   url:      link della pagina prodotto
+#   target:   avvisami quando il prezzo è <= di questo valore (in euro)
+#   selector: (opzionale) selettore CSS dell'elemento col prezzo, solo se il sito
+#             non viene letto in automatico (vedi README)
+
+- name: Echo Dot (Amazon)
+  url: https://www.amazon.it/dp/B09B8X9RGM
+  target: 39.99
+
+- name: Frigorifero Electrolux LNN3CE18S1 (MediaWorld)
+  url: https://www.mediaworld.it/it/product/_electrolux-lnn3ce18s1-568480.html
+  target: 500
+
+- name: AirPods Pro 2 (Amazon, esempio non disponibile)
+  url: https://www.amazon.it/dp/B0D1XD1ZV3
+  target: 180

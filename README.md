@@ -30,8 +30,21 @@ Nel repo: **Settings → Secrets and variables → Actions → New repository se
 **Actions** → "Tracker prezzi" → **Run workflow**. Dopo un minuto apri il run e controlla
 il log: vedi il prezzo letto per ogni prodotto. Da lì in poi parte da solo ogni 15 minuti.
 
-## Aggiungere / togliere prodotti
-Modifica `products.yaml` direttamente da GitHub (icona matita):
+## Aggiungere / togliere prodotti dal bot Telegram
+Scrivi al tuo bot:
+
+| Comando | Cosa fa |
+|---|---|
+| `/aggiungi link prezzo` | segue un nuovo prodotto (es. `/aggiungi https://www.mediaworld.it/... 299,90`); puoi aggiungere un nome alla fine |
+| `/lista` | mostra i prodotti seguiti, con prezzo attuale e soglia |
+| `/soglia numero prezzo` | cambia la soglia (es. `/soglia 2 250`) |
+| `/rimuovi numero` | smette di seguire un prodotto |
+
+I comandi vengono letti a ogni controllo, quindi la risposta arriva entro circa 30 minuti.
+Accetta comandi solo dalla tua chat. Se mandi un link Amazon ti risponde con il link Keepa.
+
+## Aggiungere / togliere prodotti a mano
+Oppure modifica `products.yaml` direttamente da GitHub (icona matita):
 
 ```yaml
 - name: Nome che vuoi nella notifica

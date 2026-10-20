@@ -1,0 +1,17 @@
+{
+  "https://www.amazon.it/dp/B09B8X9RGM": {
+    "name": "Echo Dot (Amazon)",
+    "errors": 0
+  },
+  "https://www.mediaworld.it/it/product/_electrolux-lnn3ce18s1-568480.html": {
+    "name": "Frigorifero Electrolux LNN3CE18S1 (MediaWorld)",
+    "errors": 0,
+    "last_price": 574.99,
+    "last_change": "2026-10-20T13:15:43+00:00",
+    "min_price": 574.99
+  },
+  "https://www.amazon.it/dp/B0D1XD1ZV3": {
+    "name": "AirPods Pro 2 (Amazon, esempio non disponibile)",
+    "errors": 1
+  }
+}
